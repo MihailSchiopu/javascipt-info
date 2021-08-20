@@ -42,8 +42,8 @@ let salaries = {
 
 const sum = (obj) => {
     let acc = 0;
-    for (let key in salaries) {
-        acc += salaries[key];
+    for (let key in obj) {
+        acc += obj[key];
     }
 
     return acc
@@ -90,3 +90,58 @@ let calculator = {
 calculator.read();
 console.log(calculator.sum());
 console.log(calculator.mul());
+
+function Acumulator(startingValue) {
+    this.value = startingValue
+    this.read = function () {
+        this.value += +prompt("Input value", 0)
+
+    }
+}
+
+let acumulator = new Acumulator(5)
+
+// There is a salaries object with arbitrary number of salaries.
+// Write the function sumSalaries(salaries) that returns the sum of all salaries using Object.values and the for..of loop.
+// If salaries is empty, then the result must be 0.
+
+
+let salaries12 = {
+    "John": 100,
+    "Pete": 300,
+    "Mary": 250
+};
+
+const sumSalaries = (salaries12) => {
+
+    let sum = 0;
+    for (let salary of Object.values(salaries12)) {
+        sum += salary;
+    }
+
+    return sum;
+}
+
+console.log(sumSalaries(salaries12));
+
+//Count of propriets
+
+let user1 = {
+    name: 'John',
+    age: 30
+};
+
+const count = (obj) => {
+    return Object.keys(obj).length;
+}
+
+console.log(count(user1));
+
+//destruct
+
+let user4 = {
+    name: "John",
+    years: 30
+};
+
+let { name, years: age, isAdmin = false } = user;
