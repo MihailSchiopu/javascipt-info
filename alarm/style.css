@@ -1,0 +1,16 @@
+body{
+    display: flex;
+    justify-content: center;
+}
+.pendulum {
+    --rotation: 90;
+    border: 1px solid red;
+    background-color: red;
+    transform-origin: left;
+    transform: rotate(calc(var(--rotation)*1deg));
+    width: 300px;
+    margin-left: 250px;
+}
+.wrap{
+    width: 500px;
+}
