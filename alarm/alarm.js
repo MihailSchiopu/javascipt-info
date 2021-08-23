@@ -8,7 +8,6 @@ const positions = [120, 90, 60]
 let step = 0
 
 let workingClock
-let workingPendulum
 
 startBtn.addEventListener('click', () => {
     workingClock = setInterval(alarm, 1000)
@@ -42,13 +41,13 @@ const alarm = () => {
         clock.innerHTML = `<p class="fs-3 mt-3">${hr} : ${min} : ${sec} </p>`
 
         if (sec == 00) {
-            throw new Error
+            throw new Error()
         }
 
         resolve()
 
     })
-        .then(resolve => {
+        .then(() => {
             setRotation()
             setTimeout(setRotation, 1000)
 
