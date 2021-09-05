@@ -1,0 +1,29 @@
+.addItemCard {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  height: 300px;
+  background-color: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.addItemCard input {
+  padding: 8px 0;
+  width: 200px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: solid 1px lightgray;
+}
+
+.addItemCard p {
+  margin: 0;
+}
+
+.addItemBtn {
+  margin-top: 30px;
+  padding: 10px;
+  font-size: 16px;
+}
