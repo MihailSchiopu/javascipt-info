@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import style from "./add-unicorn-style.module.css";
-import { addUnicorn } from "../Redux/actions";
+import { AddUnicorn } from "../Redux/thunks";
 
 const { addItemCard, addItemBtn } = style;
+
+const onChangeInput = (state, inputArea, text) => ({
+  ...state,
+  [inputArea]: text,
+});
 
 const AddUnicron = () => {
   const [state, setState] = useState({
@@ -21,31 +26,29 @@ const AddUnicron = () => {
       <input
         type="text"
         value={name}
-        onChange={(e) => setState((s) => ({ ...s, name: e.target.value }))}
+        onChange={(e) =>
+          setState((s) => onChangeInput(s, "name", e.target.value))
+        }
       />
       <p>Age</p>
       <input
         type="text"
         value={age}
-        onChange={(e) => setState((s) => ({ ...s, age: e.target.value }))}
+        onChange={(e) =>
+          setState((s) => onChangeInput(s, "age", e.target.value))
+        }
       />
       <p>Color</p>
       <input
         type="text"
         value={colour}
-        onChange={(e) => setState((s) => ({ ...s, colour: e.target.value }))}
+        onChange={(e) =>
+          setState((s) => onChangeInput(s, "colour", e.target.value))
+        }
       />
       <button
         className={addItemBtn}
-        onClick={() => {
-          dispatch(addUnicorn(state));
-
-          setState({
-            name: "",
-            age: "",
-            colour: "",
-          });
-        }}
+        onClick={() => dispatch(AddUnicorn(state))}
       >
         Add
       </button>

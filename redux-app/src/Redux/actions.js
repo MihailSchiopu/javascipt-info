@@ -1,49 +1,38 @@
-import UnicornService from "./../UnicornService";
+import {
+  GET_UNICORNS_FULFILLED,
+  DELETE_UNICORN_FULFILLED,
+  ADD_UNICORN_FULFILLED,
+  UPDATE_UNICORN_FULFILLED,
+  REJECTED,
+  PENDING,
+} from "./unicornReducer";
 
-const service = new UnicornService();
+export const AddUnicornFulfilledAC = (payload) => ({
+  type: ADD_UNICORN_FULFILLED,
+  payload,
+});
 
-export const toggleLoading = () => {
-  return { type: "TOGGLE_LOADING" };
-};
+export const RejetedAC = (payload) => ({
+  type: REJECTED,
+  payload,
+});
 
-export const addUnicorn = (payload) => (dispatch) => {
-  dispatch(toggleLoading());
-  service.addUnicorn(payload).then(() => {
-    dispatch({
-      type: "ADD_UNICORN",
-      payload,
-    });
-    dispatch(toggleLoading());
-  });
-};
+export const DeleteUnicornFulfilledAC = (id) => ({
+  type: DELETE_UNICORN_FULFILLED,
+  id,
+});
 
-export const deleteUnicorn = (id) => (dispatch) => {
-  dispatch(toggleLoading());
-  service.deleteUnicorn(id).then(() => {
-    dispatch({
-      type: "DELETE_UNICORN",
-      id,
-    });
-    dispatch(toggleLoading());
-  });
-};
+export const UpdateUnicornFulfilledAC = (payload, id) => ({
+  type: UPDATE_UNICORN_FULFILLED,
+  payload: { ...payload, _id: id },
+  id,
+});
 
-export const updateUnicorn = (payload, id) => (dispatch) => {
-  dispatch(toggleLoading());
-  delete payload._id;
-  service.updateUnicorn(id, payload).then(() => {
-    dispatch({
-      type: "UPDATE_UNICORN",
-      payload: { ...payload, _id: id },
-      id,
-    });
-    dispatch(toggleLoading());
-  });
-};
+export const GetUnicornsFulfilledAC = (res) => ({
+  type: GET_UNICORNS_FULFILLED,
+  payload: res,
+});
 
-export const loadingUnicorns = (dispatch) => {
-  service.getUnicorns().then((res) => {
-    dispatch({ type: "LOADED_UNICORNS", payload: res });
-    dispatch(toggleLoading());
-  });
-};
+export const PendingAC = () => ({
+  type: PENDING,
+});

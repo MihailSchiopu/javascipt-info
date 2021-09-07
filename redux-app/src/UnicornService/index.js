@@ -1,28 +1,28 @@
 export default class UnicornService {
-  _apiBase = "https://crudcrud.com/api/a69972d241f04d72880bc069f3845f98/";
-  async getResource(url, param = {}) {
+  _apiBase = "https://crudcrud.com/api/66ba44e08a344041a5a64861832e6c70/";
+  getResource = async (url, param = {}) => {
     const result = await fetch(`${this._apiBase}${url}`, param);
-    if (!result.ok) {
-      throw new Error();
-    }
+    // if (!result.ok) {
+    //   throw new Error("Filed to acces: 'https://crudcrud.com/api/'");
+    // }
     return result;
-  }
+  };
 
-  async getUnicorns() {
-    let result = await this.getResource("unicorns/");
-    return await result.json();
-  }
+  getUnicorns = async () => {
+    const result = await this.getResource("unicorns/");
+    return result.json();
+  };
 
-  async getUnicorn(id) {
-    let result = await this.getResource(`unicorns/${id}`);
-    return await result.json();
-  }
+  getUnicorn = async (id) => {
+    const result = await this.getResource(`unicorns/${id}`);
+    return result.json();
+  };
 
-  async deleteUnicorn(id) {
+  deleteUnicorn = async (id) => {
     return await this.getResource(`unicorns/${id}`, { method: "DELETE" });
-  }
+  };
 
-  async addUnicorn(data) {
+  addUnicorn = async (data) => {
     await this.getResource("unicorns/", {
       method: "POST",
       headers: {
@@ -30,9 +30,9 @@ export default class UnicornService {
       },
       body: JSON.stringify(data),
     });
-  }
+  };
 
-  async updateUnicorn(id, data) {
+  updateUnicorn = async (id, data) => {
     await this.getResource(`unicorns/${id}`, {
       method: "PUT",
       headers: {
@@ -40,5 +40,5 @@ export default class UnicornService {
       },
       body: JSON.stringify(data),
     });
-  }
+  };
 }
