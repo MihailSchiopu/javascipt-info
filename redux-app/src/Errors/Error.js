@@ -1,6 +1,6 @@
 import React from "react";
 
-const ShowError = ({ err }) => {
+const Error = ({ err }) => {
   return (
     <div>
       <p>{err}</p>
@@ -8,4 +8,4 @@ const ShowError = ({ err }) => {
   );
 };
 
-export default ShowError;
+export default Error;

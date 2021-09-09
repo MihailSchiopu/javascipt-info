@@ -3,9 +3,9 @@ import Header from "../Header/Header";
 import Body from "../Body/Body";
 import AddUnicron from "../AddUnicorn/AddUnicron";
 import Unicorns from "../Unicorns/Unicorns";
-import ShowError from "../ShowError/ShowError";
+import Error from "./../Errors/Error";
 import { useDispatch, useSelector } from "react-redux";
-import { GetUnicorns } from "./../Redux/thunks";
+import { getUnicorns } from "./../Redux/thunks";
 import {
   selectUnicorns,
   selectLoading,
@@ -20,7 +20,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(GetUnicorns);
+    dispatch(getUnicorns);
   }, []);
 
   const elements = unicornState.map((el) => (
@@ -33,7 +33,7 @@ const App = () => {
     <div>
       <Header />
       <Body>
-        {errorStatus ? <ShowError err={errorStatus} /> : null}
+        {errorStatus ? <Error err={errorStatus} /> : null}
         <AddUnicron />
         {elements}
       </Body>

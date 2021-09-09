@@ -7,32 +7,32 @@ import {
   PENDING,
 } from "./unicornReducer";
 
-export const AddUnicornFulfilledAC = (payload) => ({
+export const addUnicornFulfilled = (payload) => ({
   type: ADD_UNICORN_FULFILLED,
   payload,
 });
 
-export const RejetedAC = (payload) => ({
+export const rejeted = (payload) => ({
   type: REJECTED,
   payload,
 });
 
-export const DeleteUnicornFulfilledAC = (id) => ({
+export const deleteUnicornFulfilled = (id) => ({
   type: DELETE_UNICORN_FULFILLED,
   id,
 });
 
-export const UpdateUnicornFulfilledAC = (payload, id) => ({
+export const updateUnicornFulfilled = (payload, id) => ({
   type: UPDATE_UNICORN_FULFILLED,
   payload: { ...payload, _id: id },
   id,
 });
 
-export const GetUnicornsFulfilledAC = (res) => ({
+export const getUnicornsFulfilled = (res) => ({
   type: GET_UNICORNS_FULFILLED,
   payload: res,
 });
 
-export const PendingAC = () => ({
+export const pending = () => ({
   type: PENDING,
 });

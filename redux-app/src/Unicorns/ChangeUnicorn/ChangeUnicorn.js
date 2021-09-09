@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { UpdateUnicorn } from "../../Redux/thunks";
+import { updateUnicorn } from "../../Redux/thunks";
 import style from "./change-unicorn-style.module.css";
 
 const { itemCard, itemCardBody, addItemBtn } = style;
@@ -40,7 +40,7 @@ const ChangeUnicorn = ({ toggleChangeMod, item }) => {
         className={addItemBtn}
         onClick={() => {
           delete state._id;
-          dispatch(UpdateUnicorn(state, _id));
+          dispatch(updateUnicorn(state, _id));
           toggleChangeMod();
         }}
       >

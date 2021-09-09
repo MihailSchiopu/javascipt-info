@@ -1,5 +1,6 @@
 export default class UnicornService {
-  _apiBase = "https://crudcrud.com/api/66ba44e08a344041a5a64861832e6c70/";
+  _apiKey = "427f1f15ee9b4a769c24188dafbef623";
+  _apiBase = `https://crudcrud.com/api/${this._apiKey}/`;
   getResource = async (url, param = {}) => {
     const result = await fetch(`${this._apiBase}${url}`, param);
     // if (!result.ok) {
@@ -15,6 +16,7 @@ export default class UnicornService {
 
   getUnicorn = async (id) => {
     const result = await this.getResource(`unicorns/${id}`);
+
     return result.json();
   };
 

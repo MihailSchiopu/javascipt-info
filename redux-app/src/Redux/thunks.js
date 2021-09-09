@@ -1,64 +1,42 @@
 import {
-  AddUnicornFulfilledAC,
-  DeleteUnicornFulfilledAC,
-  UpdateUnicornFulfilledAC,
-  GetUnicornsFulfilledAC,
-  RejetedAC,
-  PendingAC,
+  addUnicornFulfilled,
+  deleteUnicornFulfilled,
+  updateUnicornFulfilled,
+  getUnicornsFulfilled,
+  rejeted,
+  pending,
 } from "./actions";
 
-export const AddUnicorn = (payload) => (dispatch, getState, service) => {
-  dispatch(PendingAC());
-  return service
+export const addUnicorn = (payload) => (dispatch, getState, configs) => {
+  dispatch(pending());
+  return configs.service
     .addUnicorn(payload)
-    .then(() => dispatch(AddUnicornFulfilledAC(payload)))
-    .catch((err) =>
-      dispatch(
-        RejetedAC(
-          `${err}: can not ADD unicorn, some problems with "POST" request`
-        )
-      )
-    );
+    .then(() => dispatch(addUnicornFulfilled(payload)))
+    .catch(() => dispatch(rejeted(configs.error.description("ADD"))));
 };
 
-export const DeleteUnicorn = (id) => (dispatch, getState, service) => {
-  dispatch(PendingAC());
-  return service
+export const deleteUnicorn = (id) => (dispatch, getState, configs) => {
+  dispatch(pending());
+  return configs.service
     .deleteUnicorn(id)
-    .then(() => dispatch(DeleteUnicornFulfilledAC(id)))
-    .catch((err) =>
-      dispatch(
-        RejetedAC(
-          `${err}: can not DELETE unicorn, some problems with "DELETE" request`
-        )
-      )
-    );
+    .then(() => dispatch(deleteUnicornFulfilled(id)))
+    .catch(() => {
+      dispatch(rejeted(configs.error.description("DELETE")));
+    });
 };
 
-export const UpdateUnicorn = (payload, id) => (dispatch, getState, service) => {
-  dispatch(PendingAC());
-  return service
+export const updateUnicorn = (payload, id) => (dispatch, getState, configs) => {
+  dispatch(pending());
+  return configs.service
     .updateUnicorn(id, payload)
-    .then(() => dispatch(UpdateUnicornFulfilledAC(payload, id)))
-    .catch((err) =>
-      dispatch(
-        RejetedAC(
-          `${err}: can not UPDATE unicorn, some problems with "PUT" request`
-        )
-      )
-    );
+    .then(() => dispatch(updateUnicornFulfilled(payload, id)))
+    .catch(() => dispatch(rejeted(configs.error.description("UPDATE"))));
 };
 
-export const GetUnicorns = (dispatch, getState, service) => {
-  dispatch(PendingAC());
-  return service
+export const getUnicorns = (dispatch, getState, configs) => {
+  dispatch(pending());
+  return configs.service
     .getUnicorns()
-    .then((res) => dispatch(GetUnicornsFulfilledAC(res)))
-    .catch((err) =>
-      dispatch(
-        RejetedAC(
-          `${err}: can not GET unicorns, some problems with "GET" request`
-        )
-      )
-    );
+    .then((res) => dispatch(getUnicornsFulfilled(res)))
+    .catch(() => dispatch(rejeted(configs.error.description("GET"))));
 };
