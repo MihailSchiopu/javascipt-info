@@ -5,6 +5,7 @@ export const useValidation = (value, validations) => {
   const [minLength, setMinLength] = useState(false);
   const [onlyNumber, setNumber] = useState(false);
   const [isColorValid, setColorValid] = useState(false);
+  const [inputValid, setInputValid] = useState(false);
 
   useEffect(() => {
     for (const validation in validations) {
@@ -36,7 +37,15 @@ export const useValidation = (value, validations) => {
     }
   }, [value]);
 
-  return { isEmpty, minLength, onlyNumber, isColorValid };
+  useEffect(() => {
+    if (isEmpty || minLength || onlyNumber || isColorValid) {
+      setInputValid(false);
+    } else {
+      setInputValid(true);
+    }
+  }, [isEmpty, minLength, onlyNumber, isColorValid]);
+
+  return { isEmpty, minLength, onlyNumber, isColorValid, inputValid };
 };
 
 export const useInput = (initialValue, validations) => {

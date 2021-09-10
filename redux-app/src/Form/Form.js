@@ -3,11 +3,6 @@ import { useDispatch } from "react-redux";
 import { useInput } from "./Validations";
 
 const Form = ({ style, action }) => {
-  // const [formState, setFormState] = useState({
-  //   name: "",
-  //   age: "",
-  //   colour: "",
-  // });
   const { addItemCard, addItemBtn } = style;
   const dispatch = useDispatch();
 
@@ -15,11 +10,7 @@ const Form = ({ style, action }) => {
   const age = useInput("", { isEmpty: true, onlyNumber: true });
   const color = useInput("", { isEmpty: true, validColor: true });
 
-  // const onChangeInput = (event) => {
-  //   const name = event.target.name;
-  //   const value = event.target.value;
-  //   setFormState((s) => ({ ...s, [name]: value }));
-  // };
+  const unicornData = (name, age, colour) => ({ name, age, colour });
 
   return (
     <div className={addItemCard}>
@@ -66,9 +57,11 @@ const Form = ({ style, action }) => {
         onChange={color.onChange}
       />
       <button
-        // disabled={isEnableButton}
+        disabled={!name.inputValid || !age.inputValid || !color.inputValid}
         className={addItemBtn}
-        // onClick={() => dispatch(action.AddUnicorn({}))}
+        onClick={() =>
+          dispatch(action(unicornData(name.value, age.value, color.value)))
+        }
       >
         Add
       </button>

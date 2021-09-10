@@ -1,46 +1,30 @@
+import axios from "axios";
+
 export default class UnicornService {
   _apiKey = "427f1f15ee9b4a769c24188dafbef623";
   _apiBase = `https://crudcrud.com/api/${this._apiKey}/`;
-  getResource = async (url, param = {}) => {
-    const result = await fetch(`${this._apiBase}${url}`, param);
-    // if (!result.ok) {
-    //   throw new Error("Filed to acces: 'https://crudcrud.com/api/'");
-    // }
-    return result;
-  };
+
+  axiosCreate = axios.create();
 
   getUnicorns = async () => {
-    const result = await this.getResource("unicorns/");
-    return result.json();
+    const result = await axios.get(`${this._apiBase}unicorns`);
+    return result.data;
   };
 
   getUnicorn = async (id) => {
-    const result = await this.getResource(`unicorns/${id}`);
-
-    return result.json();
+    const result = await axios.get(`${this._apiBase}unicorns/${id}`);
+    return result.data;
   };
 
   deleteUnicorn = async (id) => {
-    return await this.getResource(`unicorns/${id}`, { method: "DELETE" });
+    await this.axiosCreate.delete(`${this._apiBase}unicorns/${id}`);
   };
 
   addUnicorn = async (data) => {
-    await this.getResource("unicorns/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-      },
-      body: JSON.stringify(data),
-    });
+    await this.axiosCreate.post(`${this._apiBase}unicorns/`, data);
   };
 
   updateUnicorn = async (id, data) => {
-    await this.getResource(`unicorns/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-      },
-      body: JSON.stringify(data),
-    });
+    await this.axiosCreate.put(`${this._apiBase}unicorns/${id}`, data);
   };
 }
