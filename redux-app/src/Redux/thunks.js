@@ -3,40 +3,43 @@ import {
   deleteUnicornFulfilled,
   updateUnicornFulfilled,
   getUnicornsFulfilled,
-  rejeted,
+  addUnicornRejected,
+  deleteUnicornRejected,
+  updateUnicornRejected,
+  getUnicornsRejected,
   pending,
 } from "./actions";
 
-export const addUnicorn = (payload) => (dispatch, getState, configs) => {
+export const addUnicorn = (payload) => (dispatch, getState, service) => {
   dispatch(pending());
-  return configs.service
+  return service
     .addUnicorn(payload)
     .then(() => dispatch(addUnicornFulfilled(payload)))
-    .catch(() => dispatch(rejeted(configs.error.description("ADD"))));
+    .catch((err) => dispatch(addUnicornRejected(err.message)));
 };
 
-export const deleteUnicorn = (id) => (dispatch, getState, configs) => {
+export const deleteUnicorn = (id) => (dispatch, getState, service) => {
   dispatch(pending());
-  return configs.service
+  return service
     .deleteUnicorn(id)
     .then(() => dispatch(deleteUnicornFulfilled(id)))
-    .catch(() => {
-      dispatch(rejeted(configs.error.description("DELETE")));
+    .catch((err) => {
+      dispatch(deleteUnicornRejected(err.message));
     });
 };
 
-export const updateUnicorn = (payload, id) => (dispatch, getState, configs) => {
+export const updateUnicorn = (payload, id) => (dispatch, getState, service) => {
   dispatch(pending());
-  return configs.service
+  return service
     .updateUnicorn(id, payload)
     .then(() => dispatch(updateUnicornFulfilled(payload, id)))
-    .catch(() => dispatch(rejeted(configs.error.description("UPDATE"))));
+    .catch((err) => dispatch(updateUnicornRejected(err.message)));
 };
 
-export const getUnicorns = (dispatch, getState, configs) => {
+export const getUnicorns = (dispatch, getState, service) => {
   dispatch(pending());
-  return configs.service
+  return service
     .getUnicorns()
     .then((res) => dispatch(getUnicornsFulfilled(res)))
-    .catch(() => dispatch(rejeted(configs.error.description("GET"))));
+    .catch((err) => dispatch(getUnicornsRejected(err.message)));
 };

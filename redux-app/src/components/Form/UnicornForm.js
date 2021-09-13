@@ -1,19 +1,10 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useInput } from "./Validations";
+import React from "react";
 
-const Form = ({ style, action }) => {
-  const { addItemCard, addItemBtn } = style;
-  const dispatch = useDispatch();
-
-  const name = useInput("", { isEmpty: true, minLength: 2 });
-  const age = useInput("", { isEmpty: true, onlyNumber: true });
-  const color = useInput("", { isEmpty: true, validColor: true });
-
-  const unicornData = (name, age, colour) => ({ name, age, colour });
+const Form = ({ fields }) => {
+  const { name, age, color } = fields;
 
   return (
-    <div className={addItemCard}>
+    <React.Fragment>
       <p>Name</p>
       {name.isTouched && name.isEmpty && (
         <p style={{ color: "red" }}>{"This field is required"}</p>
@@ -56,16 +47,7 @@ const Form = ({ style, action }) => {
         onBlur={color.onBlur}
         onChange={color.onChange}
       />
-      <button
-        disabled={!name.inputValid || !age.inputValid || !color.inputValid}
-        className={addItemBtn}
-        onClick={() =>
-          dispatch(action(unicornData(name.value, age.value, color.value)))
-        }
-      >
-        Add
-      </button>
-    </div>
+    </React.Fragment>
   );
 };
 

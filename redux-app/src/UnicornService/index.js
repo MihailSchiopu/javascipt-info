@@ -1,14 +1,18 @@
 import axios from "axios";
-
 export default class UnicornService {
-  _apiKey = "427f1f15ee9b4a769c24188dafbef623";
+  _apiKey = "5e98705e15f04fec997cdec4c35b3599";
   _apiBase = `https://crudcrud.com/api/${this._apiKey}/`;
 
   axiosCreate = axios.create();
 
   getUnicorns = async () => {
-    const result = await axios.get(`${this._apiBase}unicorns`);
-    return result.data;
+    try {
+      const result = await axios.get(`${this._apiBase}unicorns`);
+      console.log(result);
+      return result.data;
+    } catch (error) {
+      throw new Error(`${error} can not get unicorns`);
+    }
   };
 
   getUnicorn = async (id) => {
@@ -17,14 +21,37 @@ export default class UnicornService {
   };
 
   deleteUnicorn = async (id) => {
-    await this.axiosCreate.delete(`${this._apiBase}unicorns/${id}`);
+    try {
+      const result = await this.axiosCreate.delete(
+        `${this._apiBase}unicorns/${id}`
+      );
+      return result;
+    } catch (error) {
+      throw new Error(`${error} can not delete unicorn`);
+    }
   };
 
   addUnicorn = async (data) => {
-    await this.axiosCreate.post(`${this._apiBase}unicorns/`, data);
+    try {
+      const result = await this.axiosCreate.post(
+        `${this._apiBase}unicorns/`,
+        data
+      );
+      return result;
+    } catch (error) {
+      throw new Error(`${error} can not add unicorn`);
+    }
   };
 
   updateUnicorn = async (id, data) => {
-    await this.axiosCreate.put(`${this._apiBase}unicorns/${id}`, data);
+    try {
+      const result = await this.axiosCreate.put(
+        `${this._apiBase}unicorns/${id}`,
+        data
+      );
+      return result;
+    } catch (error) {
+      throw new Error(`${error} can not update unicorn`);
+    }
   };
 }
