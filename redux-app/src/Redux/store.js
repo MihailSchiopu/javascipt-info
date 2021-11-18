@@ -5,7 +5,6 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import UnicornService from "../UnicornService";
 
 const service = new UnicornService();
-
 const composed = composeWithDevTools(
   applyMiddleware(thunkMiddleware.withExtraArgument(service))
 );

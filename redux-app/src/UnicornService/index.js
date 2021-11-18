@@ -1,44 +1,57 @@
+import axios from "axios";
 export default class UnicornService {
-  _apiBase = "https://crudcrud.com/api/66ba44e08a344041a5a64861832e6c70/";
-  getResource = async (url, param = {}) => {
-    const result = await fetch(`${this._apiBase}${url}`, param);
-    // if (!result.ok) {
-    //   throw new Error("Filed to acces: 'https://crudcrud.com/api/'");
-    // }
-    return result;
-  };
+  _apiKey = "5e98705e15f04fec997cdec4c35b3599";
+  _apiBase = `https://crudcrud.com/api/${this._apiKey}/`;
+
+  axiosCreate = axios.create();
 
   getUnicorns = async () => {
-    const result = await this.getResource("unicorns/");
-    return result.json();
+    try {
+      const result = await axios.get(`${this._apiBase}unicorns`);
+      console.log(result);
+      return result.data;
+    } catch (error) {
+      throw new Error(`${error} can not get unicorns`);
+    }
   };
 
   getUnicorn = async (id) => {
-    const result = await this.getResource(`unicorns/${id}`);
-    return result.json();
+    const result = await axios.get(`${this._apiBase}unicorns/${id}`);
+    return result.data;
   };
 
   deleteUnicorn = async (id) => {
-    return await this.getResource(`unicorns/${id}`, { method: "DELETE" });
+    try {
+      const result = await this.axiosCreate.delete(
+        `${this._apiBase}unicorns/${id}`
+      );
+      return result;
+    } catch (error) {
+      throw new Error(`${error} can not delete unicorn`);
+    }
   };
 
   addUnicorn = async (data) => {
-    await this.getResource("unicorns/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-      },
-      body: JSON.stringify(data),
-    });
+    try {
+      const result = await this.axiosCreate.post(
+        `${this._apiBase}unicorns/`,
+        data
+      );
+      return result;
+    } catch (error) {
+      throw new Error(`${error} can not add unicorn`);
+    }
   };
 
   updateUnicorn = async (id, data) => {
-    await this.getResource(`unicorns/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-      },
-      body: JSON.stringify(data),
-    });
+    try {
+      const result = await this.axiosCreate.put(
+        `${this._apiBase}unicorns/${id}`,
+        data
+      );
+      return result;
+    } catch (error) {
+      throw new Error(`${error} can not update unicorn`);
+    }
   };
 }

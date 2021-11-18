@@ -1,64 +1,45 @@
 import {
-  AddUnicornFulfilledAC,
-  DeleteUnicornFulfilledAC,
-  UpdateUnicornFulfilledAC,
-  GetUnicornsFulfilledAC,
-  RejetedAC,
-  PendingAC,
+  addUnicornFulfilled,
+  deleteUnicornFulfilled,
+  updateUnicornFulfilled,
+  getUnicornsFulfilled,
+  addUnicornRejected,
+  deleteUnicornRejected,
+  updateUnicornRejected,
+  getUnicornsRejected,
+  pending,
 } from "./actions";
 
-export const AddUnicorn = (payload) => (dispatch, getState, service) => {
-  dispatch(PendingAC());
+export const addUnicorn = (payload) => (dispatch, getState, service) => {
+  dispatch(pending());
   return service
     .addUnicorn(payload)
-    .then(() => dispatch(AddUnicornFulfilledAC(payload)))
-    .catch((err) =>
-      dispatch(
-        RejetedAC(
-          `${err}: can not ADD unicorn, some problems with "POST" request`
-        )
-      )
-    );
+    .then(() => dispatch(addUnicornFulfilled(payload)))
+    .catch((err) => dispatch(addUnicornRejected(err.message)));
 };
 
-export const DeleteUnicorn = (id) => (dispatch, getState, service) => {
-  dispatch(PendingAC());
+export const deleteUnicorn = (id) => (dispatch, getState, service) => {
+  dispatch(pending());
   return service
     .deleteUnicorn(id)
-    .then(() => dispatch(DeleteUnicornFulfilledAC(id)))
-    .catch((err) =>
-      dispatch(
-        RejetedAC(
-          `${err}: can not DELETE unicorn, some problems with "DELETE" request`
-        )
-      )
-    );
+    .then(() => dispatch(deleteUnicornFulfilled(id)))
+    .catch((err) => {
+      dispatch(deleteUnicornRejected(err.message));
+    });
 };
 
-export const UpdateUnicorn = (payload, id) => (dispatch, getState, service) => {
-  dispatch(PendingAC());
+export const updateUnicorn = (payload, id) => (dispatch, getState, service) => {
+  dispatch(pending());
   return service
     .updateUnicorn(id, payload)
-    .then(() => dispatch(UpdateUnicornFulfilledAC(payload, id)))
-    .catch((err) =>
-      dispatch(
-        RejetedAC(
-          `${err}: can not UPDATE unicorn, some problems with "PUT" request`
-        )
-      )
-    );
+    .then(() => dispatch(updateUnicornFulfilled(payload, id)))
+    .catch((err) => dispatch(updateUnicornRejected(err.message)));
 };
 
-export const GetUnicorns = (dispatch, getState, service) => {
-  dispatch(PendingAC());
+export const getUnicorns = (dispatch, getState, service) => {
+  dispatch(pending());
   return service
     .getUnicorns()
-    .then((res) => dispatch(GetUnicornsFulfilledAC(res)))
-    .catch((err) =>
-      dispatch(
-        RejetedAC(
-          `${err}: can not GET unicorns, some problems with "GET" request`
-        )
-      )
-    );
+    .then((res) => dispatch(getUnicornsFulfilled(res)))
+    .catch((err) => dispatch(getUnicornsRejected(err.message)));
 };
